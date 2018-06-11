@@ -1,58 +1,43 @@
 #include <stdio.h>
 #include <string.h>
 
-
-int main()
+int main (int argc, char* argv[])
 {
+  if (argc != 3)
+  {
+	printf("%s : expected 2 args\n", argv[0]);
+	return 1;
+  }
 
-	int convert;
-	float calculation;
-	char topic;
-	int index = 0;
+  int arg1;
+  int found = sscanf(argv[1], "%d", &arg1);
+  if (found != 1)
+  {
+	printf("first arg is not an integer\n");
+	return 1;
+  }
 
-	char checkDone[10];
+  float arg2;
+  found = sscanf(argv[2], "%f", &arg2);
+  if (found != 1)
+  {
+	printf("second arg should be a floating\n");
+	return 1;
+  }
 
-	while (1) {
+  int convert;
+  float calculation;
 
-	char input[256];
+  convert = arg1;
+  calculation = arg2;
 
-	printf("What would you like to convert between?\n");
+  if (convert == 1)
+  {
+	printf("%f inches is equal to %f centimeters\n", calculation, calculation * 2.54);
+  }
+  else if (convert == 2)
+  {
+	printf("%f centimeters is equal to %f inches\n", calculation, calculation / 2.54);
+  }
 
-	printf("l\t: Inches/Centimeters\n");
-	fgets(input, 256, stdin);
-	sscanf(input, "%s", &topic);
-
-	if (topic == 'l')
-	{
-		printf("Enter '1' for Inches to Centimeters or '2' for Centimeters to Inches\n");
-		fgets(input, 256, stdin);
-		sscanf(input, "%d", &convert);
-
-		if (convert == 1)
-		{
-			printf("How many inches?\n");
-			fgets(input, 256, stdin);
-			sscanf(input, "%f", &calculation);
-			printf("%f inches is equal to %f centimeters\n", calculation, calculation * 2.54);
-		}
-		else if (convert == 2)
-		{
-			printf("How many centimeters?\n");
-			fgets(input, 256, stdin);
-			sscanf(input, "%f", &calculation);
-			printf("%f centimneters is equal to %f inches\n", calculation, calculation * 0.39);
-		}
-		}
-
-
-		index ++;
-
-		printf("If you are done, type 'done'. If not, press enter.\n");
-		fgets(input, 256, stdin);
-		sscanf(input, "%s", checkDone);
-
-		if(strcmp(checkDone, "done") == 0) break;
-
-
-	}
 }
